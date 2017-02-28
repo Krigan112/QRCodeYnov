@@ -8,15 +8,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.zxing.BarcodeFormat;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.google.zxing.qrcode.QRCodeWriter;
+
 // on importe les classes IntentIntegrator et IntentResult de la librairie zxing
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
     private IntentIntegrator qrScan;
+    QRCodeWriter myQrCodeCreate = new QRCodeWriter();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,12 +58,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (scanningResult != null) {
                 String scanContent = scanningResult.getContents();
                 String scanFormat = scanningResult.getFormatName();
-
                 TextView scan_format = (TextView) findViewById(R.id.TypeQRCode);
                 TextView scan_content = (TextView) findViewById(R.id.ContentQRCode);
 
                 scan_format.setText("FORMAT: " + scanFormat);
                 scan_content.setText("CONTENT: " + scanContent);
+                myQrCodeCreate.encode(scanContent, BarcodeFormat.QR_CODE)
             }
             else{
                 Toast toast = Toast.makeText(getApplicationContext(),
@@ -73,7 +77,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.fab){
-            new IntentIntegrator(this).initiateScan();
+           IntentIntegrator myintent =  new IntentIntegrator(this);
+            myintent.setOrientationLocked(false);
+            myintent.initiateScan();
         }
 
     }
