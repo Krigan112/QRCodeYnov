@@ -7,4 +7,14 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_add_Qr_code"
+        android:orderInCategory="110"
+        android:title="@string/add_Qr_code"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_liststorage"
+        android:orderInCategory="110"
+        android:title="@string/storage"
+        app:showAsAction="never" />
 </menu>

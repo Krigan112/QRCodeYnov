@@ -24,7 +24,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 // on importe les classes IntentIntegrator et IntentResult de la librairie zxing
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-
+    private ImageView myImageView;
     private IntentIntegrator qrScan;
     private BitMatrix mybitmatrix;
     QRCodeWriter myQrCodeCreate = new QRCodeWriter();
@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
         FloatingActionButton mybutton = (FloatingActionButton) findViewById(R.id.fab);
         mybutton.setOnClickListener(this);
+        myImageView = (ImageView) findViewById(R.id.imageViewQrcode);
+        myImageView.setVisibility(View.INVISIBLE);
         }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,6 +62,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.action_add_Qr_code)
+        {
+            Intent createQrIntent = new Intent(this,createQRActivity.class);
+            startActivity(createQrIntent);
+        }
+        if (id== R.id.action_liststorage)
+        {
+            Intent ShowStorage = new Intent(this,List.class);
+            startActivity(ShowStorage);
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -76,6 +88,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // scan_format.setText("FORMAT: " + scanFormat);
                 //Place scan result
                 scan_content.setText("Contenu : " + scanContent);
+                utils.QrStorage.WriteContents(this,scanContent);
+                utils.QrStorage.ReadSettings(this);
                 TextView welcomeMessage = (TextView) findViewById(R.id.WelcomeTxt);
                 welcomeMessage.setText("");
 
@@ -83,6 +97,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ImageBitmap = utils.QRActions.createQrCodeFromContent(scanContent);
                 ImageView QrCodeImageView = (ImageView) findViewById(R.id.imageViewQrcode);
                 QrCodeImageView.setImageBitmap(ImageBitmap);
+                QrCodeImageView.setVisibility(View.VISIBLE);
+
+
 
             }
             else{
