@@ -8,4 +8,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="welcome">Bienvenue sur l\'application de QRcode</string>
     <string name="content">Contenu Qr code</string>
+    <string name="generate_a_qr">Generate a QR</string>
+    <string name="generate">Generate</string>
+    <string name="input_text">Input text</string>
 </resources>
