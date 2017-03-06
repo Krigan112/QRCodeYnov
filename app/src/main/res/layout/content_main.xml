@@ -12,7 +12,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="qr.qrynov.MainActivity"
     tools:showIn="@layout/activity_main"
-    android:background="@color/zxing_custom_possible_result_points"
+    android:background="@color/zxing_status_text"
     android:weightSum="1">
 
     <TextView
@@ -26,20 +26,24 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bienvenue sur l'application de QRcode"
+        android:text="@string/welcome"
         android:textSize="18sp"
         android:id="@+id/WelcomeTxt"
-        android:layout_weight="0.55"
+        android:layout_weight="0.80"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        tools:ignore="ObsoleteLayoutParam"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="Contenu Qr code"
+        android:text="@string/content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ContentQRCode"
         android:layout_weight="2.18"
-        android:layout_marginTop="0dp"
+        tools:ignore="ObsoleteLayoutParam"
+        android:layout_below="@+id/WelcomeTxt"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
