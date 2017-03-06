@@ -32,12 +32,13 @@
     <include layout="@layout/content_main" />
 
     <ImageView
-        android:layout_width="233dp"
-        android:layout_height="229dp"
         app:srcCompat="@color/colorPrimary"
         android:id="@+id/imageViewQrcode"
         android:background="@android:drawable/alert_dark_frame"
-        android:layout_gravity="center_vertical|center_horizontal" />
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_width="213dp"
+        android:layout_height="206dp"
+        android:layout_marginTop="50dp"/>
 
 
 </android.support.design.widget.CoordinatorLayout>

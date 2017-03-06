@@ -21,6 +21,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.google.zxing.qrcode.QRCodeWriter;
 
+
 // on importe les classes IntentIntegrator et IntentResult de la librairie zxing
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -29,9 +30,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     QRCodeWriter myQrCodeCreate = new QRCodeWriter();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        TextView MyTextView = (TextView) findViewById(R.id.ContentQRCode);
+        MyTextView.setText("");
         setSupportActionBar(toolbar);
         FloatingActionButton mybutton = (FloatingActionButton) findViewById(R.id.fab);
         mybutton.setOnClickListener(this);
@@ -62,35 +66,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
             if (scanningResult != null) {
+                //Get scan result
                 String scanContent = scanningResult.getContents();
                 String scanFormat = scanningResult.getFormatName();
                 TextView scan_format = (TextView) findViewById(R.id.TypeQRCode);
                 TextView scan_content = (TextView) findViewById(R.id.ContentQRCode);
-                int width = 150;
-                int height = 150;
-                try {
-                    mybitmatrix=  myQrCodeCreate.encode(scanContent,BarcodeFormat.QR_CODE,width,height);
-                } catch (WriterException e) {
-                    e.printStackTrace();
-                }
-                Bitmap ImageBitmap = Bitmap.createBitmap(width,
-                        height, Bitmap.Config.ARGB_8888);
+                // scan_format.setText("FORMAT: " + scanFormat);
+                //Place scan result
+                scan_content.setText("Contenu : " + scanContent);
+                TextView welcomeMessage = (TextView) findViewById(R.id.WelcomeTxt);
+                welcomeMessage.setText("");
 
-                for (int i = 0; i < width; i++) {// width
-                    for (int j = 0; j < height; j++) {// height
-                        ImageBitmap.setPixel(i, j, mybitmatrix.get(i, j) ? Color.BLACK
-                                : Color.WHITE);
-                    }
-                }
-                ImageView QrCodeImageView = (ImageView) findViewById(R.id.imageViewQrcode);
-                QrCodeImageView.setImageBitmap(ImageBitmap);
-
-
-
-
-
-                scan_format.setText("FORMAT: " + scanFormat);
-                scan_content.setText("CONTENT: " + scanContent);
+                // Recreate the QrCode from content
+                createQrCodeFromContent(scanContent);
 
             }
             else{
@@ -101,10 +89,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
+    private void createQrCodeFromContent(String content) {
+        if (content != null && content != "") {
+            int height = 300;
+            int width = 300;
+
+            try {
+                mybitmatrix = myQrCodeCreate.encode(content, BarcodeFormat.QR_CODE, width, height);
+            } catch (WriterException e) {
+                e.printStackTrace();
+            }
+            Bitmap ImageBitmap = Bitmap.createBitmap(width,
+                    height, Bitmap.Config.ARGB_8888);
+
+            for (int i = 0; i < width; i++) {
+                for (int j = 0; j < height; j++) {
+                    ImageBitmap.setPixel(i, j, mybitmatrix.get(i, j) ? Color.BLACK
+                            : Color.WHITE);
+                }
+            }
+            ImageView QrCodeImageView = (ImageView) findViewById(R.id.imageViewQrcode);
+            QrCodeImageView.setImageBitmap(ImageBitmap);
+        }
+    }
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.fab){
            IntentIntegrator myintent =  new IntentIntegrator(this);
+            // initiate the QrCode Scan
             myintent.initiateScan();
             myintent.setOrientationLocked(false);
         }

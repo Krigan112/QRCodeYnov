@@ -11,30 +11,35 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="qr.qrynov.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main"
+    android:background="@color/zxing_custom_possible_result_points"
+    android:weightSum="1">
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/TypeQRCode"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bienvenue sur l'application de QRcode"
         android:textSize="18sp"
+        android:id="@+id/WelcomeTxt"
+        android:layout_weight="0.55"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/WelcomeTxt" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text=""
+        android:text="Contenu Qr code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:id="@+id/TypeQRCode"
-        android:layout_centerHorizontal="true" />
-    <TextView
-        android:text=""
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="75dp"
         android:id="@+id/ContentQRCode"
+        android:layout_weight="2.18"
+        android:layout_marginTop="0dp"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
