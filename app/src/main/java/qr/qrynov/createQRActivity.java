@@ -27,7 +27,7 @@ public class createQRActivity extends AppCompatActivity implements View.OnClickL
         if(v.getId() == R.id.generateButton){
             EditText inputQR = (EditText) findViewById(R.id.inputQR);
             Bitmap monImage = utils.QRActions.createQrCodeFromContent(String.valueOf(inputQR.getText()));
-            ImageView monImageView = (ImageView) findViewById(R.id.imageViewCreateQrCode);
+            ImageView monImageView = (ImageView) findViewById(R.id.imageQrcreate);
             monImageView.setImageBitmap(monImage);
         }
 

@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(ShowStorage);
         }
 
-        if (id == R.id.action_QRCreate) {
+        if (id == R.id.action_add_Qr_code) {
             Intent QRCreate = new Intent(this, createQRActivity.class);
             startActivity(QRCreate);
         }
