@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private IntentIntegrator qrScan;
     private BitMatrix mybitmatrix;
     QRCodeWriter myQrCodeCreate = new QRCodeWriter();
+    private Bitmap ImageBitmap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -78,7 +80,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 welcomeMessage.setText("");
 
                 // Recreate the QrCode from content
-                createQrCodeFromContent(scanContent);
+                ImageBitmap = utils.QRActions.createQrCodeFromContent(scanContent);
+                ImageView QrCodeImageView = (ImageView) findViewById(R.id.imageViewQrcode);
+                QrCodeImageView.setImageBitmap(ImageBitmap);
 
             }
             else{
@@ -89,29 +93,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
-    private void createQrCodeFromContent(String content) {
-        if (content != null && content != "") {
-            int height = 300;
-            int width = 300;
-
-            try {
-                mybitmatrix = myQrCodeCreate.encode(content, BarcodeFormat.QR_CODE, width, height);
-            } catch (WriterException e) {
-                e.printStackTrace();
-            }
-            Bitmap ImageBitmap = Bitmap.createBitmap(width,
-                    height, Bitmap.Config.ARGB_8888);
-
-            for (int i = 0; i < width; i++) {
-                for (int j = 0; j < height; j++) {
-                    ImageBitmap.setPixel(i, j, mybitmatrix.get(i, j) ? Color.BLACK
-                            : Color.WHITE);
-                }
-            }
-            ImageView QrCodeImageView = (ImageView) findViewById(R.id.imageViewQrcode);
-            QrCodeImageView.setImageBitmap(ImageBitmap);
-        }
-    }
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.fab){
