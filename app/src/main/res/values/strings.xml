@@ -2,4 +2,8 @@
     <string name="app_name">QRYnov</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_qr_code">QrCode</string>
+    <string name="title_activity_main_with_menu">MainActivityWithMenu</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

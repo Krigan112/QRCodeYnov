@@ -3,6 +3,7 @@ package qr.qrynov;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private IntentIntegrator qrScan;
     private BitMatrix mybitmatrix;
+    private ImageView myImageView;
     QRCodeWriter myQrCodeCreate = new QRCodeWriter();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView MyTextView = (TextView) findViewById(R.id.ContentQRCode);
         MyTextView.setText("");
         setSupportActionBar(toolbar);
+        myImageView = (ImageView) findViewById(R.id.imageViewQrcode);
+        myImageView.setVisibility(View.INVISIBLE);
         FloatingActionButton mybutton = (FloatingActionButton) findViewById(R.id.fab);
         mybutton.setOnClickListener(this);
         }
@@ -79,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 // Recreate the QrCode from content
                 createQrCodeFromContent(scanContent);
+                myImageView.setVisibility(View.VISIBLE);
 
             }
             else{
