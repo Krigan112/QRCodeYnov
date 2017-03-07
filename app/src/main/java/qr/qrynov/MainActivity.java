@@ -2,7 +2,6 @@ package qr.qrynov;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -14,21 +13,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.google.zxing.qrcode.QRCodeWriter;
 
 
 // on importe les classes IntentIntegrator et IntentResult de la librairie zxing
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    private ImageView myImageView;
-    private IntentIntegrator qrScan;
-    private BitMatrix mybitmatrix;
-    QRCodeWriter myQrCodeCreate = new QRCodeWriter();
-    private Bitmap ImageBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
         FloatingActionButton mybutton = (FloatingActionButton) findViewById(R.id.fab);
         mybutton.setOnClickListener(this);
-        myImageView = (ImageView) findViewById(R.id.imageViewQrcode);
+        ImageView myImageView = (ImageView) findViewById(R.id.imageViewQrcode);
         myImageView.setVisibility(View.INVISIBLE);
         }
     @Override
@@ -87,8 +77,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (scanningResult != null) {
                 //Get scan result
                 String scanContent = scanningResult.getContents();
-                String scanFormat = scanningResult.getFormatName();
-                TextView scan_format = (TextView) findViewById(R.id.TypeQRCode);
                 TextView scan_content = (TextView) findViewById(R.id.ContentQRCode);
                 // scan_format.setText("FORMAT: " + scanFormat);
                 //Place scan result
@@ -99,9 +87,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 welcomeMessage.setText("");
 
                 // Recreate the QrCode from content
-                ImageBitmap = utils.QRActions.createQrCodeFromContent(scanContent);
+                Bitmap imageBitmap = utils.QRActions.createQrCodeFromContent(scanContent);
                 ImageView QrCodeImageView = (ImageView) findViewById(R.id.imageViewQrcode);
-                QrCodeImageView.setImageBitmap(ImageBitmap);
+                QrCodeImageView.setImageBitmap(imageBitmap);
                 QrCodeImageView.setVisibility(View.VISIBLE);
 
 
@@ -109,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             else{
                 Toast toast = Toast.makeText(getApplicationContext(),
-                        "Aucune donnée reçu!", Toast.LENGTH_SHORT);
+                        "Aucune donnée reçue!", Toast.LENGTH_SHORT);
                 toast.show();
             }
 

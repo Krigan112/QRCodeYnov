@@ -4,36 +4,29 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Environment;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 import com.google.zxing.qrcode.QRCodeWriter;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Objects;
 
-public class utils {
-    public static class QRActions {
+class utils {
+    static class QRActions {
 
         static BitMatrix mybitmatrix;
         static QRCodeWriter myQrCodeCreate = new QRCodeWriter();
 
-        public static Bitmap createQrCodeFromContent(String content) {
+        static Bitmap createQrCodeFromContent(String content) {
 
             int height = 300;
             int width = 300;
@@ -41,7 +34,7 @@ public class utils {
             Bitmap ImageBitmap = Bitmap.createBitmap(width,
                     height, Bitmap.Config.ARGB_8888);
 
-            if (content != null && content != "") {
+            if (content != null && !Objects.equals(content, "")) {
 
                 try {
                     mybitmatrix = myQrCodeCreate.encode(content, BarcodeFormat.QR_CODE, width, height);
@@ -60,8 +53,8 @@ public class utils {
         }
     }
 
-    public  static  class QrStorage{
-        public static void WriteContents(Context context, String data){
+    static  class QrStorage{
+        static void WriteContents(Context context, String data){
             FileOutputStream fOut = null;
             OutputStreamWriter osw = null;
             File f = new File(Environment.getExternalStorageDirectory(), "Android/data/QRCodeYnov/Qr_code");
@@ -87,7 +80,7 @@ public class utils {
 
 
         }
-        public static String ReadSettings(Context context){
+        static String ReadSettings(Context context){
             FileInputStream fIn = null;
             InputStreamReader isr = null;
 
