@@ -26,7 +26,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bienvenue sur l'application de QRCode"
+        android:text="@string/bienvenue_sur_l_application_de_qrcode"
         android:textSize="18sp"
         android:id="@+id/WelcomeTxt"
         android:layout_weight="0.80"
@@ -36,7 +36,7 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="content"
+        android:text="@string/content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ContentQRCode"
@@ -45,7 +45,7 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="Open into..."
+        android:text="@string/open_into"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

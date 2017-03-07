@@ -9,4 +9,7 @@
     <string name="add_Qr_code">Ajout QRcode</string>
     <string name="title_activity_list">list</string>
     <string name="storage">Storage</string>
+    <string name="open_into">Open into...</string>
+    <string name="content">content</string>
+    <string name="bienvenue_sur_l_application_de_qrcode">Bienvenue sur l\'application de QRCode</string>
 </resources>

@@ -1,6 +1,7 @@
 package qr.qrynov;
 
 import android.content.Intent;
+import android.content.SyncStatusObserver;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ImageView myImageView = (ImageView) findViewById(R.id.imageViewQrcode);
         myImageView.setVisibility(View.INVISIBLE);
         Button sendTo = (Button) findViewById(R.id.sendTo);
-        sendTo.setVisibility(View.INVISIBLE);
+        sendTo.setOnClickListener(this);
         }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -122,11 +123,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             myintent.setOrientationLocked(false);
         }
         if(v.getId() == R.id.sendTo){
-            if(!Objects.equals(sendContent, "")){
-                startActivity(utils.QRActions.openInto(sendContent));
+            if(!Objects.equals(sendContent, "") && sendContent != null){
+                startActivity(Intent.createChooser(utils.QRActions.openInto(sendContent), sendContent));
+                System.out.println("Or IT works? :/   :   "+sendContent);
             }else{
                 Toast toast = Toast.makeText(getApplicationContext(), "Aucun contenu!", Toast.LENGTH_SHORT);
                 toast.show();
+                System.out.println("It works? :o");
             }
         }
     }
