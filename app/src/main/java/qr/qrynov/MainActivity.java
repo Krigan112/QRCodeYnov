@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,9 +17,13 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.util.Objects;
+
 
 // on importe les classes IntentIntegrator et IntentResult de la librairie zxing
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
+    private String sendContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mybutton.setOnClickListener(this);
         ImageView myImageView = (ImageView) findViewById(R.id.imageViewQrcode);
         myImageView.setVisibility(View.INVISIBLE);
+        Button sendTo = (Button) findViewById(R.id.sendTo);
+        sendTo.setVisibility(View.INVISIBLE);
         }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -80,24 +87,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 TextView scan_content = (TextView) findViewById(R.id.ContentQRCode);
                 // scan_format.setText("FORMAT: " + scanFormat);
                 //Place scan result
+                sendContent = scanContent;
                 scan_content.setText("Contenu : " + scanContent);
+
                 utils.QrStorage.WriteContents(this,scanContent);
                 utils.QrStorage.ReadSettings(this);
+
                 TextView welcomeMessage = (TextView) findViewById(R.id.WelcomeTxt);
                 welcomeMessage.setText("");
 
                 // Recreate the QrCode from content
                 Bitmap imageBitmap = utils.QRActions.createQrCodeFromContent(scanContent);
+
                 ImageView QrCodeImageView = (ImageView) findViewById(R.id.imageViewQrcode);
                 QrCodeImageView.setImageBitmap(imageBitmap);
                 QrCodeImageView.setVisibility(View.VISIBLE);
 
-
-
+                Button sendTo = (Button) findViewById(R.id.sendTo);
+                sendTo.setVisibility(View.VISIBLE);
             }
             else{
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        "Aucune donnée reçue!", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(),"Aucune donnée reçue!", Toast.LENGTH_SHORT);
                 toast.show();
             }
 
@@ -111,6 +121,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             myintent.initiateScan();
             myintent.setOrientationLocked(false);
         }
-
+        if(v.getId() == R.id.sendTo){
+            if(!Objects.equals(sendContent, "")){
+                startActivity(utils.QRActions.openInto(sendContent));
+            }else{
+                Toast toast = Toast.makeText(getApplicationContext(), "Aucun contenu!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }
     }
 }

@@ -25,5 +25,4 @@ public class QrCode extends AppCompatActivity {
             }
         });
     }
-
 }

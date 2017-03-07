@@ -1,6 +1,7 @@
 package qr.qrynov;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Environment;
@@ -50,6 +51,14 @@ class utils {
                 }
             }
             return ImageBitmap;
+        }
+
+        static Intent openInto(String content){
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, content);
+            sendIntent.setType("text/plain");
+            return sendIntent;
         }
     }
 
@@ -108,9 +117,4 @@ class utils {
             return data;
         }
     }
-
 }
-
-
-
-
